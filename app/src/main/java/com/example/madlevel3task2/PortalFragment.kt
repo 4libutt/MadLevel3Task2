@@ -1,5 +1,7 @@
 package com.example.madlevel3task2
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -20,7 +22,11 @@ import kotlinx.android.synthetic.main.fragment_portal.*
 class PortalFragment : Fragment() {
 
     private val portals = arrayListOf<Portal>()
-    private val portalAdapter = PortalAdapter(portals)
+    private val portalAdapter = PortalAdapter(portals) { portal: Portal ->
+        portalClicked(
+            portal
+        )
+    }
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -67,5 +73,13 @@ class PortalFragment : Fragment() {
                 portals.add(it)
             } ?: Log.e("PortalCard", "No PortalCard received!")
         }
+    }
+
+    private fun portalClicked(portal: Portal) {
+        val url = portal.url
+
+        val browserIntent =
+            Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(browserIntent)
     }
 }
