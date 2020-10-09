@@ -10,6 +10,7 @@ import android.widget.Button
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_portal.*
 
@@ -34,6 +35,29 @@ class PortalFragment : Fragment() {
 
         rvPortalCards.layoutManager = GridLayoutManager(context, 2, RecyclerView.VERTICAL, false)
         rvPortalCards.adapter = portalAdapter
+
+        createItemTouchHelper().attachToRecyclerView(rvPortalCards)
+        observeAddReminderResult()
+    }
+
+    private fun createItemTouchHelper(): ItemTouchHelper {
+
+        val callback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                portals.removeAt(position)
+                portalAdapter.notifyDataSetChanged()
+            }
+        }
+        return ItemTouchHelper(callback)
     }
 
 
