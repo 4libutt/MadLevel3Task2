@@ -10,7 +10,7 @@
         android:label="overview_fragment"
         tools:layout="@layout/fragment_portal" >
         <action
-            android:id="@+id/action_overviewFragment_to_addPortalFragment"
+            android:id="@+id/action_portalFragment_to_addPortalFragment"
             app:destination="@id/addPortalFragment" />
     </fragment>
     <fragment
@@ -19,7 +19,7 @@
         android:label="add_portal_fragment"
         tools:layout="@layout/fragment_add_portal" >
         <action
-            android:id="@+id/action_addPortalFragment_to_overviewFragment"
+            android:id="@+id/action_addPortalFragment_to_portalFragment"
             app:destination="@id/portalFragment" />
     </fragment>
 </navigation>
